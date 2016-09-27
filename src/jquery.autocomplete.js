@@ -48,7 +48,9 @@
             LEFT: 37,
             UP: 38,
             RIGHT: 39,
-            DOWN: 40
+            DOWN: 40,
+            PAGEUP: 33,
+            PAGEDOWN: 34
         };
 
     function Autocomplete(el, options) {
@@ -91,7 +93,8 @@
                 showNoSuggestionNotice: false,
                 noSuggestionNotice: 'No results',
                 orientation: 'bottom',
-                forceFixPosition: false
+                forceFixPosition: false,
+                pageAmount: 5
             };
 
         // Shared variables:
@@ -440,6 +443,16 @@
                 case keys.DOWN:
                     that.moveDown();
                     break;
+                case keys.PAGEUP:
+                    for(var i = 0; i < that.options.pageAmount; i++) {
+                        that.moveUp();
+                    }
+                    break;
+                case keys.PAGEDOWN:
+                    for(var i = 0; i < that.options.pageAmount; i++) {
+                        that.moveDown();
+                    }
+                    break
                 default:
                     return;
             }
@@ -459,6 +472,8 @@
             switch (e.which) {
                 case keys.UP:
                 case keys.DOWN:
+                case keys.PAGEUP:
+                case keys.PAGEDOWN:
                     return;
             }
 
